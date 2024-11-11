@@ -3,34 +3,39 @@ import Header from './Header';
 import MainContent from './MainContent';
 import { Box } from '@mui/material';
 import Projects from './Projects';
-import DividerSection from './DividerSection';
+import Service from './Service';
+import AboutMe from './AboutMe';
+import Footer from './Footer';
+import Contact from './Contact';
 
 const theme = createTheme({
   typography: {
-    fontFamily: 'Josefin Sans, Arial, sans-serif',
+    fontFamily: 'Urbanist, sans-serif',
   },
-  palette: {
-    primary: {
-      main: '#808080',
-    },
-    secondary: {
-      main: '#808080',
-    },
-    accent: {
-      main: '#808080',
-    },
-  },
+  
 });
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}> {/* Använd height istället för minHeight */}
         <Header />
-        <Box sx={{ flexGrow: 1 }}>
-          <MainContent />
-          <DividerSection />
-          <Projects /> 
+        <Box sx={{ flexGrow: 1, width: '100%' }}>
+          <div className="background-box">
+            <MainContent />
+          </div>
+          <div className="background-box">
+            <AboutMe />
+          </div>
+          <div className="background-box">
+            <Service />
+          </div>
+          <Projects />
+          <div className="background-box">
+          <Contact />
+          </div>
+          
+          <Footer />
         </Box>
       </Box>
     </ThemeProvider>

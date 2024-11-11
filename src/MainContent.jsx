@@ -1,392 +1,249 @@
-import { Box, Typography, Avatar, Button, Modal } from "@mui/material";
-import { Worker, Viewer } from '@react-pdf-viewer/core';
-import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
-import '@react-pdf-viewer/core/lib/styles/index.css';
-import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import React, { useState } from "react";
+import { Box, Typography, Avatar, Button, Modal, TextField } from "@mui/material";
+import SocialMedia from './SocialMedia';
+import emailjs from '@emailjs/browser';
 
 function MainContent() {
-  const defaultLayoutPluginInstance = defaultLayoutPlugin();
-  const [openCV, setOpenCV] = useState(false);
-  const [openCert, setOpenCert] = useState(false);
-  const [openOmMig, setOpenOmMig] = useState(false);
+  const [openRecruitModal, setOpenRecruitModal] = useState(false);
+  const [message, setMessage] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [jobType, setJobType] = useState("");
 
-  const handleOpenCV = () => setOpenCV(true);
-  const handleCloseCV = () => setOpenCV(false);
+  const handleOpenRecruitModal = () => setOpenRecruitModal(true);
+  const handleCloseRecruitModal = () => {
+    setOpenRecruitModal(false);
+    setMessage("");
+    setCompanyName("");
+    setJobType("");
+  };
 
-  const handleOpenCert = () => setOpenCert(true);
-  const handleCloseCert = () => setOpenCert(false);
-
-  const handleOpenOmMig = () => setOpenOmMig(true);
-  const handleCloseOmMig = () => setOpenOmMig(false);
+  const handleSendMessage = () => {
+    emailjs.send(
+      import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+      { 
+        message: message, 
+        from_name: 'Rekryterare',
+      },
+      import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
+    )
+    .then((response) => {
+      console.log('Meddelande skickat!', response.status, response.text);
+      handleCloseRecruitModal();
+    })
+    .catch((error) => {
+      console.error('Misslyckades att skicka meddelandet...', error);
+    });
+  };
 
   return (
-    <main>
+    <main id="home">
       <Box
         sx={{
-          p: 2,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          textAlign: "left",
-          flexDirection: "column",
-        }}
-      >
-        <Box
-          className="icon-container"
-          sx={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-            gap: 2,
-            mb: 2,
-            flexWrap: "wrap",
-          }}
-        ></Box>
-
-        <Box
-          sx={{
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-start",
-          }}
-          className="main-content"
-        >
-          <Avatar
-            alt="Antonio"
-            src="/Antonio.png"
-            className="avatar"
-            sx={{ borderRadius: 0 }}
-          />
-
-          {/* Text bredvid avatar */}
-          <Box sx={{ ml: { sm: 2 }, maxWidth: "600px" }}>
-            <Typography
-              variant="body1"
-              sx={{ fontFamily: "Josefin Sans", fontSize: "20px" }}
-            >
-              Jag är en passionerad fullstackutvecklare med erfarenhet av React och moderna webbutvecklingsverktyg som Vite, MUI och Figma. Med ett starkt fokus på att skapa användarvänliga och responsiva webbapplikationer, älskar att ta idéer från koncept till verklighet. Mitt mål är alltid att bygga lösningar som inte bara ser bra ut, utan som också ger en sömlös och engagerande användarupplevelse, oavsett enhet eller skärmstorlek. Genom att kombinera innovativ teknik med ett noggrant öga för detaljer, strävar jag efter att skapa digitala produkter som verkligen gör skillnad.
-            </Typography>
-
-            {/* Knappar under texten */}
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                gap: 2,
-                mt: 2,
-              }}
-            >
-              {/* CV-knapp */}
-              <Button
-                variant="outlined"
-                color="inherit"
-                onClick={handleOpenCV}
-                sx={{
-                  textTransform: "none",
-                  "&:hover": {
-                    transition: "transform 0.3s ease",
-                    transform: "scale(1.1)",
-                    backgroundColor: "#e0e0e0",
-                    zIndex: 2,
-                  },
-                }}
-              >
-                Mitt CV
-              </Button>
-
-              {/* Certifikat-knapp */}
-              <Button
-                variant="outlined"
-                color="inherit"
-                onClick={handleOpenCert}
-                sx={{
-                  textTransform: "none",
-                  "&:hover": {
-                    transition: "transform 0.3s ease",
-                    transform: "scale(1.1)",
-                    backgroundColor: "#e0e0e0",
-                    zIndex: 2,
-                  },
-                }}
-              >
-                Visa Certifikat
-              </Button>
-
-              {/* Om mig-knapp */}
-              <Button
-                variant="outlined"
-                color="inherit"
-                onClick={handleOpenOmMig}
-                sx={{
-                  textTransform: "none",
-                  "&:hover": {
-                    transition: "transform 0.3s ease",
-                    transform: "scale(1.1)",
-                    backgroundColor: "#e0e0e0",
-                    zIndex: 2,
-                  },
-                }}
-              >
-                Om mig
-              </Button>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-
-      {/* popup för CV */}
-      <Modal
-      open={openCV}
-      onClose={handleCloseCV}
-      aria-labelledby="modal-title-cv"
-      aria-describedby="modal-description-cv"
-    >
-      <Box
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "80vw",
-          maxWidth: "800px",
-          height: "70vh",
-          border: "none",
-          boxShadow: 24,
           p: 4,
-          borderRadius: 3,
-          outline: "none",
-          backgroundImage: 'url("/Background.png")',
-          bgcolor: "background.paper",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          overflow: "hidden",
-          
+          display: "flex",
+          flexDirection: { xs: "column", md: "row-reverse" },
+          alignItems: "center",
+          justifyContent: "space-around",
+          textAlign: "left",
+          minHeight: "80vh",
         }}
       >
-        <Typography
-          id="modal-title-cv"
-          variant="h3"
-          component="h2"
-          sx={{
-            mb: 3,
-            fontWeight: "bold",
-            color: "#333",
-            fontFamily: "Josefin Sans",
-            textAlign: "center",
-          }}
-        >
-         CV
-        </Typography>
-        
-        
-      {/* PDF Viewer */}
-      <Box
-            sx={{
-              height: "calc(100% - 60px)", 
-                height: "100%", 
-                width: "100%",  
-                overflow: "hidden",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center"
-            }}
-        >
-            <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}>
-                <Viewer
-                    fileUrl={`${window.location.origin}/antonio-cv.pdf`}
-                    plugins={[]}
-                    style={{ height: "100%", width: "100%" }}
-                />
-            </Worker>
-         </Box>
-      </Box>
-    </Modal>
-
-      {/* popup för Certifikat */}
-      <Modal
-        open={openCert}
-        onClose={handleCloseCert}
-        aria-labelledby="modal-title-cert"
-        aria-describedby="modal-description-cert"
-      >
-        <Box className="modal-box"
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "90vw", 
-            maxWidth: "700px", 
-            maxHeight: "80vh", 
-            bgcolor: "background.paper",
-            border: "none",
-            boxShadow: 24,
-            p: 4,
-            borderRadius: 3,
-            outline: "none",
-            overflow: "hidden",
-            backgroundImage: 'url("/Background.png")',
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
+        {/* Text-sektionen */}
+        <Box sx={{ maxWidth: "500px", marginBottom: "100px", marginRight: "70px", textAlign: { xs: "center", md: "left" }, mt: { xs: 4, md: 0 } }}>
+          
           <Typography
-            id="modal-title-cert"
-            variant="h5"
-            component="h2"
+            variant="h2"
             sx={{
-              mb: 2,
+              fontFamily: "Urbanist",
               fontWeight: "bold",
-              color: "#333",
-              fontFamily: "Josefin Sans",
-            }}
-          >
-            Mitt Certifikat
-          </Typography>
-          <Typography
-            id="modal-description-cert"
-            sx={{ mb: 3, color: "#555", fontFamily: "Josefin Sans" }}
-          >
-            Här är mitt certifikat från min programmeringskurs.
-          </Typography>
-
-          <img
-            src="/Certifikat.png"
-            alt="Certifikat"
-            style={{
-              width: "100%", 
-              maxHeight: "60vh", 
-              objectFit: "contain", 
-              borderRadius: "8px",
-            }}
-          />
-        </Box>
-      </Modal>
-
-      {/* popup för Om mig */}
-      <Modal
-        open={openOmMig}
-        onClose={handleCloseOmMig}
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
-      >
-        <Box className="modal-box"
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 700,
-            bgcolor: "background.paper",
-            border: "none",
-            boxShadow: 24,
-            p: 4,
-            borderRadius: 3,
-            outline: "none",
-            backgroundImage: 'url("/Background.png")',
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <Typography
-            id="modal-title"
-            variant="h5"
-            component="h2"
-            sx={{
-              mb: 3,
-              fontWeight: "bold",
-              color: "#333",
-              fontFamily: "Josefin Sans",
+              fontSize: "2rem",
+              color: "white",
+              mt: 1,
             }}
           >
             Antonio Moussa
           </Typography>
+          
+          {/* Uppdelad titel */}
           <Typography
-            id="modal-description"
-            sx={{ mb: 5, fontWeight: "bold",
-              color: "#333", fontFamily: "Josefin Sans" }}
-          >
-            jag har nyligen avslutat min utbildning som fullstackutvecklare.
-            Under min utbildning har jag utvecklat en stark passion för att koda
-            och bygga användarvänliga applikationer och webbplatser. Jag trivs
-            bäst när jag får arbeta med tekniska utmaningar och ser alltid till
-            att förbättra mina kunskaper inom både frontend och
-            backend-utveckling. Jag har arbetat med flera projekt där jag fått
-            möjlighet att tillämpa mina kunskaper, jag ser fram emot att få
-            fortsätta utvecklas inom dessa områden. Jag är en mycket driven och
-            målinriktad person som älskar att ta mig an nya utmaningar. På min
-            fritid ägnar jag mig åt träning, vilket ger mig den balans och
-            energi som krävs för att fortsätta växa både professionellt och
-            personligt. Jag tror att min vilja att ständigt förbättras,
-            tillsammans med min passion för utveckling, gör mig till den
-            personen jag är idag. Här är några av de verktyg och
-            programmeringsspråk jag använder:
-          </Typography>
-
-          {/* Bilder i popup */}
-          <Box
+            variant="h4"
             sx={{
-              display: "flex",
-              gap: 2,
-              mt: 2,
-              flexWrap: "wrap",
-              justifyContent: "center",
+              fontFamily: "Urbanist",
+              fontWeight: "bold",
+              fontSize: "5.5rem",
+              color: "#fd853a",
+              mt: 1,
+              lineHeight: 1,
+              marginRight:"70px",
+              
             }}
           >
-            <img
-              src="/Ts.png"
-              alt="TypeScript"
-              style={{ width: "50px", height: "50px" }}
-            />
+            Webb-
+          </Typography>
+          <Typography
+            variant="h4"
+            sx={{
+              fontFamily: "Urbanist",
+              fontWeight: "bold",
+              fontSize: "4.5rem",
+              color: "#fd853a",
+              lineHeight: 1, 
+              marginLeft:"90px",
+            }}
+          >
+            Utvecklare
+          </Typography>
+          
+          <Typography
+            variant="body1"
+            sx={{
+              fontFamily: "Urbanist",
+              fontSize: "1.1rem",
+              color: "white",
+              mt: 2,
+              mb: 3,
+            }}
+          >
+            Från STOCKHOLM
+          </Typography>
+          <Button
+            variant="contained"
+            onClick={handleOpenRecruitModal} 
+            sx={{
+              borderRadius: "20px",
+              backgroundColor: "#fd853a",
+              color: "white",
+              fontFamily: "Urbanist",
+              textTransform: "none",
+              fontWeight: "bold",
+              padding: "10px 20px",
+              "&:hover": {
+                transition: "transform 0.3s ease",
+                transform: "scale(1.1)",
+              },
+            }}
+          >
+            Kontakta mig
+          </Button>
+        </Box>
 
-            <img
-              src="/React.png"
-              alt="React"
-              style={{ width: "50px", height: "50px" }}
-            />
+        {/* Avatar-sektionen */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            mt: { xs: 4, md: 0 },
+          }}
+        >
+          <Avatar
+            alt="Antonio"
+            src="/Antonio.png"
+            sx={{
+              width: { xs: 400, md: 550 },
+              height: "auto",
+              borderRadius: 0,
+              mb: 1,
+            }}
+          />
 
-            <img
-              src="/firebase.png"
-              alt="Firebase"
-              style={{ width: "60px", height: "60px" }}
-            />
+           {/* Pop Up för Rekrytera mig */}
+      <Modal open={openRecruitModal} onClose={handleCloseRecruitModal}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "90%",
+            maxWidth: "500px",
+            bgcolor: "background.paper",
+            border: "none",
+            boxShadow: 24,
+            p: 4,
+            borderRadius: 3,
+            textAlign: "center",
+            backgroundImage: 'url("/Background.png")',
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <Typography variant="h6" sx={{ mb: 2, color: "white" }}>
+            Meddelande till Antonio
+          </Typography>
 
-            <img
-              src="/css.png"
-              alt="CSS"
-              style={{ width: "50px", height: "50px" }}
-            />
+              {/* Företagets namn */}
+               <TextField
+                variant="outlined"
+                fullWidth
+                placeholder="Företagets namn"
+                value={companyName}
+                onChange={(e) => setCompanyName(e.target.value)}
+                sx={textFieldStyle}
+              />
 
-            <img
-              src="/HTML5.png"
-              alt="HTML5"
-              style={{ width: "50px", height: "50px" }}
-            />
+              {/* Jobbtyp */}
+              <TextField
+                variant="outlined"
+                fullWidth
+                placeholder="Typ av jobb (ex. Fullstack)"
+                value={jobType}
+                onChange={(e) => setJobType(e.target.value)}
+                sx={textFieldStyle}
+              />
 
-            <img
-              src="/Mongodb.png"
-              alt="MongoDB"
-              style={{ width: "120px", height: "50px" }}
-            />
+              {/* Meddelande */}
+              <TextField
+                multiline
+                rows={4}
+                variant="outlined"
+                fullWidth
+                placeholder="Skriv ditt meddelande här..."
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                sx={textFieldStyle}
+              />
 
-            <img
-              src="/Npm.png"
-              alt="NPM"
-              style={{ width: "60px", height: "60px" }}
-            />
+              {/* Skicka meddelande-knapp */}
+              <Button
+                variant="contained"
+                onClick={handleSendMessage}
+                sx={{
+                  textTransform: "none",
+                  borderRadius: "20px",
+                  backgroundColor: "#fd853a",
+                  "&:hover": {
+                    transition: "transform 0.3s ease",
+                    transform: "scale(1.1)",
+                  },
+                  mt: 2,
+                }}
+              >
+                Skicka meddelande
+              </Button>
+            </Box>
+          </Modal>
 
-            <img
-              src="/Js.png"
-              alt="JavaScript"
-              style={{ width: "50px", height: "50px" }}
-            />
+          {/* Social Media knappar */}
+          <Box sx={{ display: "flex", justifyContent: "center", marginLeft: "45px", mt: -3 }}>
+            <SocialMedia />
           </Box>
         </Box>
-      </Modal>
+      </Box>
     </main>
   );
 }
+
+const textFieldStyle = {
+  mb: 3,
+  "& .MuiOutlinedInput-root": {
+    color: "white",
+    "& fieldset": { borderColor: "white" },
+    "&:hover fieldset": { borderColor: "white" },
+    "&.Mui-focused fieldset": { borderColor: "#fd853a" }
+  },
+  "& .MuiInputBase-input::placeholder": { color: "rgba(255, 255, 255, 0.7)" }
+};
 
 export default MainContent;

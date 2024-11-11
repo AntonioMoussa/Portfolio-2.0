@@ -1,134 +1,191 @@
-/* Gör hela sidan (html och body) fullhöjd */
 html, body {
   height: 100%;
   margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  background-image: url('/Background.png');
-  background-size: cover;  
-  background-repeat: no-repeat; 
-  background-attachment: fixed;  
   background-position: center;
-  padding-top: 60px;   
+  scroll-behavior: smooth;
+  background-color: black;
 }
 
-/* För stora skärmar (över 1024px) */
+/* Bakgrundsbox */
+.background-box {
+  width: 90%;
+  min-height: 60vh;
+  max-width: 1600px;
+  margin: 40px auto 200px;
+  padding: 30px;
+  border-radius: 8px;
+  background-image: url('/Background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 768px) {
+  .background-box {
+    width: 85%;
+    min-height: 80vh;
+  }
+}
+
+@media (min-width: 1024px) {
+  .background-box {
+    width: 80%;
+    min-height: 75vh;
+  }
+}
+
+/* Avatar-styling */
+.avatar {
+  margin-bottom: 20px !important;
+}
+
 @media (min-width: 1024px) {
   .avatar {
-    width: 500px !important; 
+    width: 500px !important;
     height: auto !important;
     margin-right: 20px !important;
   }
 }
 
-/* För stora skärmar (över 1024px) */
-@media (min-width: 1024px) {
-  .avatar {
-    width: 500px !important; 
-    height: auto !important;
-    margin-right: 20px !important;
-  }
-}
-
-/* För surfplattor (768px till 1024px) */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .avatar {
-    width: 400px !important; 
-    height: auto !important;
-    margin-bottom: 20px !important;
-  }
-}
-
-/* För mobila enheter (under 768px) */
 @media (max-width: 768px) {
   .avatar {
-    width: 300px !important; 
-    height: auto !important;
-    margin-bottom: 20px !important;
+    width: 300px !important;
   }
-}
 
-/* För små skärmar (mobil) - avatar ovanför texten */
-@media (max-width: 768px) {
   .main-content {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
-  }
-
-  .avatar {
-    margin-bottom: 20px; 
   }
 }
 
-/* knapparna i headern */
-@media (max-width: 768px) {
-  /* Ändra endast knapparna i headern */
-  header .MuiIconButton-root {
-    width: 50px;
-    height: 50px;
-  }
+/* Sociala media-ikoner */
+.social-media-icons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
 
-  /* För små skärmar (mobil), header-knappar i vågrät linje i övre högra hörnet */
+/* Tjänstebilder - 4 per rad */
 @media (max-width: 768px) {
-  header .MuiIconButton-root {
-    display: inline-block; /* Gör dem vågräta */
+  .service-icons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+}
+
+/* Projektbild och text */
+.project-image {
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+}
+
+.project-text {
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Border för projektsektion */
+.project-border {
+  border: 2px solid #fd853a;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+/* Textflik för kontaktsektionen */
+.contact-text {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact-button {
+  display: block;
+  margin: 10px auto;
+}
+
+/* Navigationslänkar för små skärmar */
+@media (max-width: 768px) {
+  .nav-links {
+    font-size: 0.8rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+  }
+}
+
+/* Huvudtitel och underrubrik för små skärmar */
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 2rem;
+  }
+  .sub-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Header-knappar och layout för små skärmar */
+@media (max-width: 768px) {
+  header .MuiButton-root {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    margin: 0 2px;
   }
 
   header .MuiBox-root {
-    display: flex;
-    flex-direction: row; /* Ändra till vågrät linje */
-    justify-content: flex-end; /* Placera i högra hörnet */
-    gap: 10px;
-    margin-right: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
-  header .MuiIconButton-root img {
-    width: 40px;
-    height: 40px;
-  }
-
-  header .MuiToolbar-root {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  header .MuiAppBar-root {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  header .MuiToolbar-root .MuiBox-root {
-    gap: 5px; 
-  }
-
-  header .MuiBox-root img {
-    width: 40px; 
-    height: auto;
-  }
+/* Justering av headerns layout */
+header .MuiBox-root {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-right: 10px;
 }
 
-  /* grid for icon-container */
+header .MuiIconButton-root img {
+  width: 40px;
+  height: 40px;
+}
+
+header .MuiToolbar-root {
+  padding: 0 10px;
+}
+
+/* Ikon-container layout för mobil */
 @media (max-width: 768px) {
   .icon-container {
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr); /* 4 ikoner per rad */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     justify-content: center;
   }
 
   .icon-container img {
-    width: 45px !important; 
-    height: auto !important;
+    width: 45px;
+    height: auto;
   }
 }
 
+/* Modal-styling */
 .modal-box {
-  width: 70vw !important;  
-  max-width: 700px !important; 
-  max-height: 80vh !important;  
-  overflow-y: auto !important; 
+  width: 70vw !important;
+  max-width: 700px !important;
+  max-height: 80vh !important;
+  overflow-y: auto !important;
   position: absolute !important;
   top: 50% !important;
   left: 50% !important;
@@ -144,22 +201,21 @@ html, body {
 
 @media (max-width: 768px) {
   .modal-box {
-    width: 70vw !important;
     padding: 15px !important;
     max-height: 70vh !important;
   }
 }
 
-/* scrollbar */
+/* Scrollbar-styling */
 ::-webkit-scrollbar {
-  width: 16px !important; 
+  width: 16px !important;
 }
 
-::-webkit-scrollbar-track{
-  background: #bfbfbf;
+::-webkit-scrollbar-track {
+  background: black;
 }
 
-::-webkit-scrollbar-thumb{
-  background: linear-gradient(#808080, #707070);
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#fd853a, #707070);
   border-radius: 10px;
 }

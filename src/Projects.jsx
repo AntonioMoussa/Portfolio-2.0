@@ -1,171 +1,194 @@
-import { Box, Button, Modal, Typography } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
+import { Box, Button, Typography, Modal } from "@mui/material";
 
 function Projects() {
-  const [open, setOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [openSpotifyModal, setOpenSpotifyModal] = useState(false);
+  const [openKlarnaModal, setOpenKlarnaModal] = useState(false);
 
-  const handleOpen = (project) => {
-    setSelectedProject(project);
-    setOpen(true);
-  };
+  const handleOpenSpotifyModal = () => setOpenSpotifyModal(true);
+  const handleCloseSpotifyModal = () => setOpenSpotifyModal(false);
+  const handleOpenKlarnaModal = () => setOpenKlarnaModal(true);
+  const handleCloseKlarnaModal = () => setOpenKlarnaModal(false);
 
-  const handleClose = () => {
-    setOpen(false);
-    setSelectedProject(null);
-  };
+  const projects = [
+    {
+      logo: "/spotify-logo.png",
+      projectImage: "/Spotify.clone.png",
+      altText: "Spotify Klon",
+      description:
+        "Responsiv med 20 komponenter, byggd med Spotifys Web API och SDK för en autentisk användarupplevelse. Inkluderat albumvisning, spellistor, spela/pausa, spårval,",
+      backgroundImage: "url('/object 6.png')",
+      isVideoProject: true,
+      handleOpenModal: handleOpenSpotifyModal,
+    },
 
-  return (
-    <Box
+{
+      logo: "/flag-logo.png",
+      projectImage: "/Flagproject.png",
+      altText: "Världens Länder",
+      link: "https://worldflagapp.netlify.app",
+      description:
+        "En hemsida där man kan filtrera länder efter kontinenter och se information som huvudstad, invånare och flagga, i ljus eller mörkt läge.",
+      backgroundImage: "url('/object 5.png')",
+    },
+    {
+      logo: "/Klarna-logo.png",
+      projectImage: "/Klarna.Checkout.png",
+      altText: "Klarna Checkout",
+      description:
+        "Klarna-kassasystem med backend-integration, som erbjuder både en fristående betalningsportal och integration för e-handelswebbplatser.",
+      backgroundImage: "url('/object 4.png')",
+      isVideoProject: true,
+      handleOpenModal: handleOpenKlarnaModal,
+    },
+    {
+      logo: "/lock-logo.png",
+      projectImage: "/Password.generator.png",
+      altText: "Lösenords Generator",
+      link: "https://newpasswordgenerator1.netlify.app",
+      description:
+        "Skapar starka lösenord, välj att inkludera bokstäver, siffror och specialtecken, samt ange lösenordets längd. Appen genererar sedan ett lösenord och visar dess säkerhetsnivå.",
+      backgroundImage: "url('/object 3.png')",
+    },
+    {
+      logo: "/gift-logo.png",
+      projectImage: "/Beställnings.kort.png",
+      altText: "Beställningskort",
+      link: "https://giftcardapp.netlify.app",
+      description:
+        "Ett responsivt beställningskortssystem med olika teman och designalternativ. Stilren design och hover-effekter gör det enkelt och användarvänligt.",
+      backgroundImage: "url('/object 1.png')",
+    },
+    {
+      logo: "/light-logo.png",
+      projectImage: "/Motivations.generator.png",
+      altText: "Motivations Generator",
+      link: "https://motivationapp2.netlify.app",
+      description:
+        "inspirerar med citat från ett API. Vid varje knapptryck genereras ett nytt citat. Layouten anpassar sig automatiskt efter skärmstorleken, med interaktiva hover-effekter.",
+      backgroundImage: "url('/object 2.png')",
+    },
+
+  ];
+
+
+ return (
+    <Box id="projects"
       sx={{
-        p: 2,
-        textAlign: "center",
-        paddingBottom: "60px",
-        marginTop: "250px",
-        marginBottom: "90px",
         display: "flex",
-        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 5,
+        paddingBottom: "60px",
       }}
     >
-     <Box
-  sx={{
-    display: "grid",
-    gridTemplateColumns: {
-      xs: "1fr",  
-      sm: "1fr", 
-      md: "repeat(2, 1fr)"  
-    },
-    gap: 10,
-    maxWidth: "1000px",
-  }}
-      >
-        {[
-          {
-            logo: "/spotify-logo.png",
-            projectImage: "/Spotify.clone.png",
-            altText: "Spotify Clone",
-            link: "https://spotify-clone.example.com",
-            description:
-              "En responsiv Spotify-klon skapad med verktyg för att efterlikna originalet. Applikationen består av cirka 20 komponenter och använder Spotifys Web API och SDK för att ge en upplevelse liknande Spotify. Funktionerna inkluderar att visa album och spellistor, spela och pausa låtar, hoppa över spår och justera volymen.",
-            backgroundImage: "url('/object 6.png')",
-          },
-          {
-            logo: "/flag-logo.png",
-            projectImage: "/Flagproject.png",
-            altText: "Flag Project",
-            link: "https://worldflagapp.netlify.app",
-            description:
-              "Här har jag byggt en hemsida där man enkelt kan filtrera länder efter kontinenter. Man kan även se information om länderna, som till exempel huvudstad och antal invånare. Självklart visas även varje lands flagga. Sidan har dessutom ett ljus- och mörkt läge som användaren kan växla mellan.",
-            backgroundImage: "url('/object 5.png')",
-          },
-          {
-            logo: "/Klarna-logo.png",
-            projectImage: "/Klarna.Checkout.png",
-            altText: "Klarna Checkout",
-            link: "https://klarna-checkout.example.com",
-            description:
-              "Ett Klarna-kassasystem byggt med responsiv design och backend-integration. Klarna Checkout erbjuder en fristående betalningsportal samt ett integrationsalternativ för andra e-handelswebbplatser.",
-            backgroundImage: "url('/object 4.png')",
-          },
-          {
-            logo: "/lock-logo.png",
-            projectImage: "/Password.generator.png",
-            altText: "Password Generator",
-            link: "https://newpasswordgenerator1.netlify.app",
-            description:
-              "En lösenordsgenerator som hjälper användare att skapa starka och säkra lösenord. Att skapa ett säkert lösenord kan vara svårt, därför byggde jag denna lösenordsgenerator. Användarna kan enkelt välja om de vill inkludera stora eller små bokstäver, siffror eller specialtecken, samt ange längden på lösenordet. Därefter genererar appen ett lösenord och visar hur säkert det är. Mycket smidigt och användarvänligt.",
-            backgroundImage: "url('/object 3.png')",
-          },
-          {
-            logo: "/gift-logo.png",
-            projectImage: "/Beställnings.kort.png",
-            altText: "Beställningskort",
-            link: "https://giftcardapp.netlify.app",
-            description:
-              "Ett beställningskortssystem med olika teman och designalternativ för kunder. Systemet har en responsiv och stilren design med hover-effekter som gör applikationen användarvänlig och enkel att hantera.",
-            backgroundImage: "url('/object 1.png')",
-          },
-          {
-            logo: "/light-logo.png",
-            projectImage: "/Motivations.generator.png",
-            altText: "Motivations Generator",
-            link: "https://motivationapp2.netlify.app",
-            description:
-              "En motivationsgenerator som inspirerar användare med citat och idéer. Applikationen hämtar motiverande citat från ett API, där varje knapptryck genererar ett nytt citat. Den är responsiv och anpassar sig till olika skärmstorlekar, vilket ger en optimal användarupplevelse både på mobila enheter och stationära datorer. Jag har designat en layout som automatiskt anpassar sig efter användarens skärmstorlek, och implementerat interaktiva element som hover-effekter för alla klickbara komponenter, vilket gör applikationen mer engagerande och användarvänlig. Applikationen hämtar och visar dynamiskt innehåll från ett externt API.",
-            backgroundImage: "url('/object 2.png')",
-          },
-        ].map((project, index) => (
+       {/* Huvudrubrik */}
+       <Typography variant="h3" sx={{ fontWeight: "bold", color: "white", mb: 4 }}>
+        Mina Projekt
+      </Typography>
+
+      {projects.map((project, index) => (
+        <Box
+          key={index}
+          sx={{
+            display: "flex",
+            flexDirection: index % 2 === 0 ? "row" : "row-reverse",
+            alignItems: "center",
+            width: "100%",
+            maxWidth: "1000px",
+            height: "550px", 
+            backgroundImage: 'url("/Background.png")',
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            boxShadow: 5,
+            borderRadius: 2,
+            overflow: "hidden",
+            marginBottom: 4,
+            border: "2px solid #fd853a",
+          }}
+        >
+          {/* Projektbild */}
           <Box
-            key={index}
+            component="img"
+            src={project.projectImage}
+            alt={project.altText}
             sx={{
-              textAlign: "center",
-              border: "2px solid #808080",
-              padding: "20px",
-              borderRadius: "8px",
-              position: "relative",
+              width: "60%",
+              height: "100%", 
+              objectFit: "contain",
+              padding: 5,
             }}
-          >
-            {/* Bakgrundsbilden med suddig effekt */}
+          />
+
+          {/* Textdel */}
+          <Box sx={{ padding: 5, width: "50%", textAlign: "left", color: "white", }}>
+            <Typography variant="h5" sx={{ fontWeight: "bold", mb: 5, color: "white", }}>
+              {project.altText}
+            </Typography>
+
+            {/* Scrollbar beskrivningstexten */}
             <Box
               sx={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                backgroundImage: project.backgroundImage,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                filter: "blur(5px)",
-                zIndex: 0,
-                borderRadius: "8px",
+                maxHeight: "150px",  
+                overflowY: "hidden",
+                overflowX: "hidden",  
+                pr: 1, 
+                "&::-webkit-scrollbar": {
+                  width: "5px",  
+                },
+                "&::-webkit-scrollbar-track": {
+                  background: "transparent",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  background: "linear-gradient(#fd853a, #707070)", 
+                  borderRadius: "10px",
+                },
               }}
-            />
-
-            {/* Innehållet ovanpå den suddiga bakgrunden */}
-            <div
-              className="project-container"
-              style={{ position: "relative", zIndex: 0 }}
             >
-              <img
-                src={project.logo}
-                alt={project.altText}
-                className="logo-image"
-                style={{ width: 100, height: "auto" }}
-              />
-              <img
-                src={project.projectImage}
-                alt={project.altText}
-                className="project-image hover"
-                style={{
-                  width: "100%",  
-                  maxWidth: "500px",  
-                  height: "auto",
+              <Typography variant="body1">{project.description}</Typography>
+            </Box>
+            
+            {/* Knapp för att visa projekt */}
+            {project.isVideoProject ? (
+              <Button
+                onClick={handleOpenSpotifyModal}
+                variant="outlined"
+                sx={{
+                  textTransform: "none",
+                  color: "white",
+                  border: "2px solid #fd853a",
+                  borderRadius: "20px",
+                  padding: "8px 16px",
+                  mt: 5,
+                  transition: "transform 0.3s ease, background-color 0.3s ease",
+                  "&:hover": {
+                    backgroundColor: "#fd853a",
+                    transform: "scale(1.1)",
+                  },
+                  "&:active": {
+                    transform: "scale(0.9)",
+                  },
+                  zIndex: 2,
                 }}
-              />
-            </div>
-
-            {/* Knapp: Se sidan live */}
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                gap: 2,
-                marginTop: 1,
-              }}
-            >
+              >
+                Se Projekt
+              </Button>
+            ) : (
               <Button
                 href={project.link}
                 target="_blank"
                 variant="outlined"
                 sx={{
                   textTransform: "none",
-                  border: "2px solid #808080",
-                  color: "black",
+                  color: "white",
+                  border: "2px solid #fd853a",
+                  borderRadius: "20px",
+                  padding: "8px 16px",
+                  mt: 5,
                   transition: "transform 0.3s ease, background-color 0.3s ease",
                   "&:hover": {
+                    backgroundColor: "#fd853a",
                     transform: "scale(1.1)",
-                    backgroundColor: "#e0e0e0",
                   },
                   "&:active": {
                     transform: "scale(0.9)",
@@ -173,77 +196,54 @@ function Projects() {
                   zIndex: 2,
                 }}
               >
-                Se sidan live!
+                Se Projekt
               </Button>
-
-              {/* knapp: Om projektet */}
-              <Button
-                variant="outlined"
-                sx={{
-                  textTransform: "none",
-                  border: "2px solid #808080",
-                  color: "black",
-                  transition: "transform 0.3s ease, background-color 0.3s ease",
-                  "&:hover": {
-                    transform: "scale(1.1)",
-                    backgroundColor: "#e0e0e0",
-                  },
-                  "&:active": {
-                    transform: "scale(0.9)",
-                  },
-                  zIndex: 2,
-                }}
-                onClick={() => handleOpen(project)}
-              >
-                Om projektet
-              </Button>
-            </Box>
+            )}
           </Box>
-        ))}
-      </Box>
+        </Box>
+      ))}
 
-      {/* Popup för projektbeskrivningen */}
+  {/* Pop Up för Spotify-videon */}
       <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="project-modal-title"
-        aria-describedby="project-modal-description"
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+        open={openSpotifyModal}
+        onClose={handleCloseSpotifyModal}
+        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
       >
-       <Box className="modal-box"
+        <Box
           sx={{
-            width: 400,
-            bgcolor: "white",
-            borderRadius: 4,
-            p: 4,
-            boxShadow: 24,
-            backgroundImage: "url('/Background.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            width: "90%",
+            maxWidth: "600px",
+            backgroundColor: "black",
+            borderRadius: "8px",
+            p: 2,
           }}
         >
-          {selectedProject && (
-            <>
-              <Typography
-                id="project-modal-title"
-                variant="h6"
-                component="h2"
-                sx={{ fontFamily: "Josefin Sans", textAlign: "center" }}
-              >
-                {selectedProject.altText}
-              </Typography>
-              <Typography
-                id="project-modal-description"
-                sx={{ mt: 2, fontFamily: "Josefin Sans", textAlign: "center" }}
-              >
-                {selectedProject.description}
-              </Typography>
-            </>
-          )}
+          <video width="100%" controls autoPlay>
+            <source src="Spotify-Video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </Box>
+      </Modal>
+
+       {/* Pop Up för Klarna-video */}
+       <Modal
+        open={openKlarnaModal}
+        onClose={handleCloseKlarnaModal}
+        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+      >
+        <Box
+          sx={{
+            width: "90%",
+            maxWidth: "600px",
+            backgroundColor: "black",
+            borderRadius: "8px",
+            p: 2,
+          }}
+        >
+          <video width="100%" controls autoPlay>
+            <source src="Klarna-Video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </Box>
       </Modal>
     </Box>
