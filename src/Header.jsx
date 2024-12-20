@@ -2,6 +2,12 @@ import { Box, Button, Modal, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { Worker, Viewer } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
+import HomeIcon from "@mui/icons-material/Home";
+import InfoIcon from "@mui/icons-material/Info";
+import BuildIcon from "@mui/icons-material/Build";
+import FolderIcon from "@mui/icons-material/Folder";
+import ContactMailIcon from "@mui/icons-material/ContactMail";
+import SchoolIcon from "@mui/icons-material/School";
 
 function Header() {
   const [openCV, setOpenCV] = useState(false);
@@ -14,55 +20,200 @@ function Header() {
   const handleCloseCert = () => setOpenCert(false);
 
   return (
-    <header style={{ display: "flex", justifyContent: "center", }}>
+    <header
+      style={{
+        top: 0,
+        width: "100%",
+        zIndex: 1000,
+        backgroundColor: "rgba(0, 0, 0, 0.8)",
+        backdropFilter: "blur(10px)",
+        padding: "10px 0",
+      }}
+    >
       <Box
         sx={{
           display: "flex",
-          flexDirection: "row", 
+          flexDirection: { xs: "column", sm: "row" },
           gap: 5,
           alignItems: "center",
           justifyContent: "center",
-          border:"1px solid #fd853a",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
           borderRadius: "25px",
-          marginTop: "5px",
-          padding: "5px",
+          margin: "30px auto",
+          width: "900px",
+          maxWidth: "100%",
+          padding: "10px 20px",
         }}
       >
-        <Typography variant="body2" component="a" sx={{ color: 'white', textDecoration: 'none', }}>
-          Hem
-        </Typography>
-        <Typography variant="body2" component="a" href="#about" sx={{ color: 'white', textDecoration: 'none', "&:hover": { transform: 'scale(1.1)' } }}>
-          Om mig
-        </Typography>
-        <Typography variant="body2" component="a" href="#services" sx={{ color: 'white', textDecoration: 'none', "&:hover": { transform: 'scale(1.1)' } }}>
-          Tjänster
-        </Typography>
-        <Typography variant="body2" component="a" href="#projects" sx={{ color: 'white', textDecoration: 'none', "&:hover": { transform: 'scale(1.1)' } }}>
-          Projekt
-        </Typography>
-        <Typography variant="body2" component="a" href="#contact" sx={{ color: 'white', textDecoration: 'none', "&:hover": { transform: 'scale(1.1)' } }}>
-          Kontakt
-        </Typography>
-
         <Typography
-          variant="body2" 
-          color="inherit"
-          onClick={handleOpenCert}
+          variant="body2"
+          component="a"
+          href="#home"
           sx={{
-            border: "none",
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
             color: "white",
-            textDecoration: 'none',
-            cursor: "pointer",
-            textTransform: "none",
-            "&:hover": {
-              transition: "transform 0.3s ease",
-              transform: "scale(1.1)",
+            textDecoration: "none",
+            position: "relative",
+            "&::after": {
+              content: '""',
+              position: "absolute",
+              bottom: -2,
+              left: 0,
+              height: "2px",
+              width: "0%",
+              backgroundColor: "#fd853a",
+              transition: "width 0.3s ease-in-out",
+            },
+            "&:hover::after": {
+              width: "100%",
             },
           }}
         >
-          Certifikat
-          </Typography>
-
+          <HomeIcon fontSize="small" /> Hem
+        </Typography>
+        <Typography
+          variant="body2"
+          component="a"
+          href="#about"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            color: "white",
+            textDecoration: "none",
+            position: "relative",
+            "&::after": {
+              content: '""',
+              position: "absolute",
+              bottom: -2,
+              left: 0,
+              height: "2px",
+              width: "0%",
+              backgroundColor: "#fd853a",
+              transition: "width 0.3s ease-in-out",
+            },
+            "&:hover::after": {
+              width: "100%",
+            },
+          }}
+        >
+          <InfoIcon fontSize="small" /> Om mig
+        </Typography>
+        <Typography
+          variant="body2"
+          component="a"
+          href="#services"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            color: "white",
+            textDecoration: "none",
+            position: "relative",
+            "&::after": {
+              content: '""',
+              position: "absolute",
+              bottom: -2,
+              left: 0,
+              height: "2px",
+              width: "0%",
+              backgroundColor: "#fd853a",
+              transition: "width 0.3s ease-in-out",
+            },
+            "&:hover::after": {
+              width: "100%",
+            },
+          }}
+        >
+          <BuildIcon fontSize="small" /> Tjänster
+        </Typography>
+        <Typography
+          variant="body2"
+          component="a"
+          href="#projects"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            color: "white",
+            textDecoration: "none",
+            position: "relative",
+            "&::after": {
+              content: '""',
+              position: "absolute",
+              bottom: -2,
+              left: 0,
+              height: "2px",
+              width: "0%",
+              backgroundColor: "#fd853a",
+              transition: "width 0.3s ease-in-out",
+            },
+            "&:hover::after": {
+              width: "100%",
+            },
+          }}
+        >
+          <FolderIcon fontSize="small" /> Projekt
+        </Typography>
+        <Typography
+          variant="body2"
+          component="a"
+          href="#contact"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            color: "white",
+            textDecoration: "none",
+            position: "relative",
+            "&::after": {
+              content: '""',
+              position: "absolute",
+              bottom: -2,
+              left: 0,
+              height: "2px",
+              width: "0%",
+              backgroundColor: "#fd853a",
+              transition: "width 0.3s ease-in-out",
+            },
+            "&:hover::after": {
+              width: "100%",
+            },
+          }}
+        >
+          <ContactMailIcon fontSize="small" /> Kontakt
+        </Typography>
+        <Typography
+          variant="body2"
+          color="inherit"
+          onClick={handleOpenCert}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            color: "white",
+            textDecoration: "none",
+            cursor: "pointer",
+            position: "relative",
+            "&::after": {
+              content: '""',
+              position: "absolute",
+              bottom: -2,
+              left: 0,
+              height: "2px",
+              width: "0%",
+              backgroundColor: "#fd853a",
+              transition: "width 0.3s ease-in-out",
+            },
+            "&:hover::after": {
+              width: "100%",
+            },
+          }}
+        >
+          <SchoolIcon fontSize="small" /> Certifikat
+        </Typography>
         <Button
           variant="outlined"
           color="inherit"
@@ -72,19 +223,25 @@ function Header() {
             borderColor: "#fd853a",
             color: "white",
             textTransform: "none",
+            transition: "all 0.3s ease",
             "&:hover": {
-              transition: "transform 0.3s ease",
-              transform: "scale(1.1)",
               backgroundColor: "#fd853a",
+              borderColor: "transparent",
+              color: "black",
             },
           }}
         >
           Mitt CV
-        </Button>     
+        </Button>
       </Box>
 
       {/* Popup för CV */}
-      <Modal open={openCV} onClose={handleCloseCV} aria-labelledby="modal-title-cv" aria-describedby="modal-description-cv">
+      <Modal
+        open={openCV}
+        onClose={handleCloseCV}
+        aria-labelledby="modal-title-cv"
+        aria-describedby="modal-description-cv"
+      >
         <Box
           sx={{
             position: "absolute",
@@ -103,19 +260,47 @@ function Header() {
             overflow: "hidden",
           }}
         >
-          <Typography id="modal-title-cv" variant="h3" component="h2" sx={{ mb: 3, fontWeight: "bold", color: "white", fontFamily: "Josefin Sans", textAlign: "center" }}>
+          <Typography
+            id="modal-title-cv"
+            variant="h3"
+            component="h2"
+            sx={{
+              mb: 3,
+              fontWeight: "bold",
+              color: "white",
+              fontFamily: "Urbanist, sans-serif",
+              textAlign: "center",
+            }}
+          >
             CV
           </Typography>
-          <Box sx={{ height: "100%", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <Box
+            sx={{
+              height: "100%",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}>
-              <Viewer fileUrl={`${window.location.origin}/antonio-cv.pdf`} plugins={[]} style={{ height: "100%", width: "100%" }} />
+              <Viewer
+                fileUrl={`${window.location.origin}/antonio-cv.pdf`}
+                plugins={[]}
+                style={{ height: "100%", width: "100%" }}
+              />
             </Worker>
           </Box>
         </Box>
       </Modal>
 
       {/* Popup för Certifikat */}
-      <Modal open={openCert} onClose={handleCloseCert} aria-labelledby="modal-title-cert" aria-describedby="modal-description-cert">
+      <Modal
+        open={openCert}
+        onClose={handleCloseCert}
+        aria-labelledby="modal-title-cert"
+        aria-describedby="modal-description-cert"
+      >
         <Box
           sx={{
             position: "absolute",
@@ -135,10 +320,30 @@ function Header() {
             backgroundPosition: "center",
           }}
         >
-          <Typography id="modal-title-cert" variant="h5" component="h2" sx={{ mb: 2, fontWeight: "bold", color: "white", fontFamily: "Josefin Sans", textAlign: "center" }}>
+          <Typography
+            id="modal-title-cert"
+            variant="h5"
+            component="h2"
+            sx={{
+              mb: 2,
+              fontWeight: "bold",
+              color: "white",
+              fontFamily: "Josefin Sans",
+              textAlign: "center",
+            }}
+          >
             Mitt Certifikat
           </Typography>
-          <img src="/Certifikat.png" alt="Certifikat" style={{ width: "100%", maxHeight: "60vh", objectFit: "contain", borderRadius: "8px" }} />
+          <img
+            src="/Certifikat.png"
+            alt="Certifikat"
+            style={{
+              width: "100%",
+              maxHeight: "60vh",
+              objectFit: "contain",
+              borderRadius: "8px",
+            }}
+          />
         </Box>
       </Modal>
     </header>
@@ -146,3 +351,4 @@ function Header() {
 }
 
 export default Header;
+

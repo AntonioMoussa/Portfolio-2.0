@@ -18,7 +18,7 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}> {/* Använd height istället för minHeight */}
+      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
         <Header />
         <Box sx={{ flexGrow: 1, width: '100%' }}>
           <div className="background-box">
